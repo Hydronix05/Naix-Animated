@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naix Animated - Animation for Everyone</title>
+    <style>
+        /* ============================================
+           NAIX ANIMATED - DARK THEME
+           ============================================ */
+
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0d0d0d;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+            user-select: none;
+        }
+
+        /* MAIN APP CONTAINER */
+        #app {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 1100px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(108, 92, 231, 0.15);
+            border: 1px solid #2a2a2a;
+        }
+
+        /* HEADER */
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #2a2a2a;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        #header h1 span {
+            font-weight: 300;
+            font-size: 14px;
+            -webkit-text-fill-color: #666;
+            background: none;
+        }
+
+        #header-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        #header-info .highlight {
+            color: #6c5ce7;
+            font-weight: 600;
+        }
+
+        /* MAIN LAYOUT */
+        #main {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================
+           TOOLBAR (LEFT)
+           ============================================ */
+        #toolbar {
+            width: 180px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tool-group {
+            background: #121212;
+            border-radius: 10px;
+            padding: 14px;
+            border: 1px solid #252525;
+        }
+
+        .tool-group label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .tool-group input[type="range"] {
+            width: 100%;
+            accent-color: #6c5ce7;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .tool-group input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: 2px solid #2a2a2a;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .tool-group input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 2px;
+        }
+
+        .tool-group input[type="color"]::-webkit-color-swatch {
+            border-radius: 4px;
+            border: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: #252525;
+            color: #e0e0e0;
+            border: 1px solid transparent;
+        }
+
+        .btn:hover {
+            background: #333;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: #6c5ce7;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #7c6cf7;
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #f05a4a;
+        }
+
+        .btn-success {
+            background: #00b894;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #00d2a0;
+        }
+
+        .btn-warning {
+            background: #fdcb6e;
+            color: #1a1a1a;
+        }
+
+        .btn-warning:hover {
+            background: #ffe07a;
+        }
+
+        .btn-sm {
+            padding: 6px 0;
+            font-size: 11px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        .shortcut-hint {
+            font-size: 10px;
+            color: #555;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        /* ============================================
+           CANVAS AREA (CENTER)
+           ============================================ */
+        #canvas-wrap {
+            flex: 1;
+            min-width: 300px;
+            background: #0d0d0d;
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #252525;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #canvas-wrap canvas {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 740 / 480;
+            background: #ffffff;
+            border-radius: 8px;
+            cursor: crosshair;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            touch-action: none;
+        }
+
+        /* ============================================
+           TIMELINE (BOTTOM)
+           ============================================ */
+        #timeline-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px solid #2a2a2a;
+        }
+
+        #timeline-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        #timeline-controls .info {
+            font-size: 13px;
+            color: #888;
+        }
+
+        #timeline-controls .info span {
+            color: #6c5ce7;
+            font-weight: 600;
+        }
+
+        #timeline-track {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 8px 4px 12px 4px;
+            align-items: center;
+            min-height: 70px;
+            scroll-behavior: smooth;
+        }
+
+        #timeline-track::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        #timeline-track::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 2px;
+        }
+
+        #timeline-track::-webkit-scrollbar-thumb {
+            background: #6c5ce7;
+            border-radius: 2px;
+        }
+
+        .thumb {
+            min-width: 70px;
+            height: 60px;
+            background: #fff;
+            border-radius: 6px;
+            border: 3px solid #2a2a2a;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .thumb.active {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+            transform: scale(1.05);
+        }
+
+        .thumb .thumb-label {
+            position: absolute;
+            bottom: 2px;
+            right: 4px;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            font-size: 9px;
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .thumb .thumb-delete {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            font-weight: 700;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .thumb:hover .thumb-delete {
+            display: block;
+        }
+
+        .thumb-placeholder {
+            min-width: 70px;
+            height: 60px;
+            border-radius: 6px;
+            border: 2px dashed #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 820px) {
+            #toolbar {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .tool-group {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            #app {
+                padding: 16px;
+            }
+
+            #header h1 {
+                font-size: 20px;
+            }
+
+            #header-info {
+                font-size: 12px;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 8px;
+            }
+
+            #app {
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            .tool-group {
+                padding: 10px;
+            }
+
+            .thumb {
+                min-width: 50px;
+                height: 44px;
+            }
+
+            .thumb-placeholder {
+                min-width: 50px;
+                height: 44px;
+            }
+        }
+
+        /* ============================================
+           TOAST NOTIFICATION
+           ============================================ */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 12px 28px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            z-index: 999;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px);
+        }
+
+        #toast.success {
+            border-color: #00b894;
+        }
+
+        #toast.error {
+            border-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    TOAST
+    ============================================ -->
+    <div id="toast"></div>
+
+    <!-- ============================================
+    APP
+    ============================================ -->
+    <div id="app">
+
+        <!-- HEADER -->
+        <div id="header">
+            <h1>⚡ NAIX <span>ANIMATED</span></h1>
+            <div id="header-info">
+                <span>Frame: <span class="highlight" id="frameCounter">1</span> / <span id="totalFrames">1</span></span>
+                <span>|</span>
+                <span>12 <span style="color:#666;">fps</span></span>
+                <span>|</span>
+                <span id="statusBadge" style="color:#00b894;">● Ready</span>
+            </div>
+        </div>
+
+        <!-- MAIN -->
+        <div id="main">
+
+            <!-- TOOLBAR -->
+            <div id="toolbar">
+
+                <!-- Drawing Tools -->
+                <div class="tool-group">
+                    <label>🖊️ Brush</label>
+                    <input type="color" id="brushColor" value="#2d2d2d">
+                    <label style="margin-top:8px;">Size</label>
+                    <input type="range" id="brushSize" min="1" max="30" value="4">
+                    <span style="font-size:11px;color:#555;text-align:center;display:block;" id="sizeDisplay">4px</span>
+                </div>
+
+                <!-- Frame Controls -->
+                <div class="tool-group">
+                    <button class="btn btn-primary" id="addFrameBtn">➕ Add Frame</button>
+                    <div class="btn-group">
+                        <button class="btn btn-sm" id="prevFrameBtn">◀</button>
+                        <button class="btn btn-sm" id="nextFrameBtn">▶</button>
+                        <button class="btn btn-sm btn-danger" id="deleteFrameBtn">✕</button>
+                    </div>
+                    <button class="btn btn-success" id="playBtn">▶ Play</button>
+                </div>
+
+                <!-- File -->
+                <div class="tool-group">
+                    <button class="btn btn-warning" id="exportBtn">💾 Export Video</button>
+                    <button class="btn" id="saveBtn">💿 Save Project</button>
+                    <button class="btn" id="loadBtn">📂 Load Project</button>
+                    <input type="file" id="fileInput" style="display:none;" accept=".naix,.json">
+                </div>
+
+                <!-- Help -->
+                <div class="tool-group" style="font-size:11px;color:#555;text-align:center;">
+                    <span>N • New &nbsp;|&nbsp; ← → • Nav</span>
+                    <span style="display:block;">Space • Play &nbsp;|&nbsp; Del • Delete</span>
+                </div>
+            </div>
+
+            <!-- CANVAS -->
+            <div id="canvas-wrap">
+                <canvas id="canvas" width="740" height="480"></canvas>
+            </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <div id="timeline-section">
+            <div id="timeline-controls">
+                <div class="info">📽️ Timeline</div>
+                <div class="info">
+                    <span id="frameCountDisplay">1</span> frame(s)
+                </div>
+            </div>
+            <div id="timeline-track">
+                <!-- Thumbnails rendered by JS -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================
+    JAVASCRIPT - THE ENGINE
+    ============================================ -->
+    <script>
+        // ============================================
+        // NAIX ANIMATED v1.0
+        // Full animation engine - pure vanilla JS
+        // ============================================
+
+        // --- DOM refs ---
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const timelineTrack = document.getElementById('timeline-track');
+        const frameCounter = document.getElementById('frameCounter');
+        const totalFrames = document.getElementById('totalFrames');
+        const frameCountDisplay = document.getElementById('frameCountDisplay');
+        const statusBadge = document.getElementById('statusBadge');
+        const toast = document.getElementById('toast');
+
+        // --- UI refs ---
+        const brushColor = document.getElementById('brushColor');
+        const brushSize = document.getElementById('brushSize');
+        const sizeDisplay = document.getElementById('sizeDisplay');
+
+        // --- State ---
+        const CANVAS_W = 740;
+        const CANVAS_H = 480;
+        const FPS = 12;
+        const FRAME_INTERVAL = 1000 / FPS;
+
+        let frames = []; // Array of ImageData
+        let currentIndex = 0;
+        let isPlaying = false;
+        let playTimer = null;
+        let isDrawing = false;
+        let lastX = 0,
+            lastY = 0;
+
+        // --- Toast ---
+        function showToast(msg, type = '') {
+            toast.textContent = msg;
+            toast.className = 'show ' + type;
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => {
+                toast.className = '';
+            }, 2500);
+        }
+
+        // --- Status ---
+        function setStatus(text, color = '#00b894') {
+            statusBadge.textContent = '● ' + text;
+            statusBadge.style.color = color;
+        }
+
+        // --- Frame Helpers ---
+        function createBlankImageData() {
+            const imgData = ctx.createImageData(CANVAS_W, CANVAS_H);
+            // Fill with white
+            for (let i = 0; i < imgData.data.length; i += 4) {
+                imgData.data[i] = 255; // R
+                imgData.data[i + 1] = 255; // G
+                imgData.data[i + 2] = 255; // B
+                imgData.data[i + 3] = 255; // A
+            }
+            return imgData;
+        }
+
+        function saveCurrentFrame() {
+            frames[currentIndex] = ctx.getImageData(0, 0, CANVAS_W, CANVAS_H);
+        }
+
+        function loadFrame(index) {
+            if (index < 0 || index >= frames.length) return;
+            currentIndex = index;
+            ctx.putImageData(frames[currentIndex], 0, 0);
+            updateUI();
+            renderTimeline();
+        }
+
+        function addFrame(duplicate = false) {
+            saveCurrentFrame();
+
+            let newFrame;
+            if (duplicate && frames.length > 0) {
+                // Duplicate the current frame's data
+                const data = frames[currentIndex];
+                newFrame = ctx.createImageData(CANVAS_W, CANVAS_H);
+                newFrame.data.set(data.data);
+            } else {
+                newFrame = createBlankImageData();
+            }
+
+            frames.push(newFrame);
+            currentIndex = frames.length - 1;
+            ctx.putImageData(newFrame, 0, 0);
+            updateUI();
+            renderTimeline();
+            setStatus('Frame added', '#6c5ce7');
+            showToast('➕ Frame ' + (currentIndex + 1) + ' added');
+        }
+
+        function deleteCurrentFrame() {
+            if (frames.length <= 1) {
+                showToast('❌ Need at least 1 frame', 'error');
+                return;
+            }
+
+            frames.splice(currentIndex, 1);
+
+            if (currentIndex >= frames.length) {
+                currentIndex = frames.length - 1;
+            }
+
+            ctx.putImageData(frames[currentIndex], 0, 0);
+            updateUI();
+            renderTimeline();
+            setStatus('Frame deleted', '#e74c3c');
+            showToast('🗑️ Frame deleted');
+        }
+
+        function clearCanvas() {
+            const blank = createBlankImageData();
+            ctx.putImageData(blank, 0, 0);
+            saveCurrentFrame();
+            setStatus('Cleared', '#fdcb6e');
+        }
+
+        // --- Playback ---
+        function togglePlay() {
+            if (isPlaying) {
+                stopPlayback();
+                return;
+            }
+
+            if (frames.length < 2) {
+                showToast('⚠️ Add more frames to play!', 'error');
+                return;
+            }
+
+            isPlaying = true;
+            document.getElementById('playBtn').textContent = '⏹ Stop';
+            document.getElementById('playBtn').className = 'btn btn-danger';
+            setStatus('Playing', '#fdcb6e');
+
+            saveCurrentFrame();
+            let idx = currentIndex;
+
+            playTimer = setInterval(() => {
+                idx = (idx + 1) % frames.length;
+                ctx.putImageData(frames[idx], 0, 0);
+                currentIndex = idx;
+                updateUI();
+                renderTimeline();
+                // Scroll to current thumb
+                const thumbs = timelineTrack.querySelectorAll('.thumb');
+                if (thumbs[idx]) {
+                    thumbs[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+            }, FRAME_INTERVAL);
+        }
+
+        function stopPlayback() {
+            isPlaying = false;
+            clearInterval(playTimer);
+            playTimer = null;
+            document.getElementById('playBtn').textContent = '▶ Play';
+            document.getElementById('playBtn').className = 'btn btn-success';
+            setStatus('Ready', '#00b894');
+
+            // Reload current frame to reset any drawing state
+            ctx.putImageData(frames[currentIndex], 0, 0);
+        }
+
+        // --- Export ---
+        function exportVideo() {
+            if (frames.length < 2) {
+                showToast('⚠️ Need at least 2 frames to export', 'error');
+                return;
+            }
+
+            setStatus('Exporting...', '#fdcb6e');
+            showToast('🎬 Rendering video...');
+
+            // Use canvas.captureStream
+            const stream = canvas.captureStream(FPS);
+            const recorder = new MediaRecorder(stream, {
+                mimeType: 'video/webm',
+                videoBitsPerSecond: 2500000
+            });
+
+            const chunks = [];
+            recorder.ondataavailable = e => chunks.push(e.data);
+
+            recorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'naix_animation.webm';
+                a.click();
+                URL.revokeObjectURL(url);
+                setStatus('Exported!', '#00b894');
+                showToast('✅ Video exported!', 'success');
+            };
+
+            recorder.start();
+
+            // Play through all frames for export
+            let idx = 0;
+            const exportInterval = setInterval(() => {
+                ctx.putImageData(frames[idx], 0, 0);
+                idx++;
+                if (idx >= frames.length) {
+                    clearInterval(exportInterval);
+                    setTimeout(() => {
+                        recorder.stop();
+                    }, 300);
+                }
+            }, FRAME_INTERVAL);
+        }
+
+        // --- Save / Load ---
+        function saveProject() {
+            saveCurrentFrame();
+            const data = {
+                version: '1.0',
+                name: 'Naix Animation',
+                width: CANVAS_W,
+                height: CANVAS_H,
+                fps: FPS,
+                frames: frames.map(f => ({
+                    data: Array.from(f.data)
+                }))
+            };
+
+            const json = JSON.stringify(data);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'my_animation.naix';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('💾 Project saved!', 'success');
+            setStatus('Saved', '#00b894');
+        }
+
+        function loadProject(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+
+                    if (!data.frames || data.frames.length === 0) {
+                        showToast('❌ Invalid project file', 'error');
+                        return;
+                    }
+
+                    // Stop playback if active
+                    if (isPlaying) stopPlayback();
+
+                    // Load frames
+                    frames = data.frames.map(f => {
+                        const imgData = ctx.createImageData(data.width || CANVAS_W, data.height || CANVAS_H);
+                        imgData.data.set(f.data);
+                        return imgData;
+                    });
+
+                    currentIndex = 0;
+                    ctx.putImageData(frames[0], 0, 0);
+                    updateUI();
+                    renderTimeline();
+                    setStatus('Loaded', '#00b894');
+                    showToast('📂 Project loaded! ' + frames.length + ' frames', 'success');
+                } catch (err) {
+                    showToast('❌ Error loading file', 'error');
+                    console.error(err);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // --- UI Update ---
+        function updateUI() {
+            frameCounter.textContent = currentIndex + 1;
+            totalFrames.textContent = frames.length;
+            frameCountDisplay.textContent = frames.length;
+        }
+
+        // --- Timeline ---
+        function renderTimeline() {
+            timelineTrack.innerHTML = '';
+
+            frames.forEach((frameData, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'thumb' + (index === currentIndex ? ' active' : '');
+
+                // Mini canvas
+                const miniCanvas = document.createElement('canvas');
+                miniCanvas.width = 70;
+                miniCanvas.height = 50;
+                const miniCtx = miniCanvas.getContext('2d');
+                miniCtx.putImageData(frameData, 0, 0);
+                thumb.appendChild(miniCanvas);
+
+                // Label
+                const label = document.createElement('span');
+                label.className = 'thumb-label';
+                label.textContent = index + 1;
+                thumb.appendChild(label);
+
+                // Delete button
+                const del = document.createElement('button');
+                del.className = 'thumb-delete';
+                del.textContent = '×';
+                del.title = 'Delete frame ' + (index + 1);
+                del.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Stop playback if playing
+                    if (isPlaying) stopPlayback();
+                    // Save current state then delete
+                    const oldIndex = currentIndex;
+                    currentIndex = index;
+                    deleteCurrentFrame();
+                    // Restore index logic is handled inside deleteCurrentFrame
+                });
+                thumb.appendChild(del);
+
+                // Click to go to frame
+                thumb.addEventListener('click', () => {
+                    if (isPlaying) stopPlayback();
+                    saveCurrentFrame();
+                    loadFrame(index);
+                });
+
+                timelineTrack.appendChild(thumb);
+            });
+
+            // If no frames, show placeholder
+            if (frames.length === 0) {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'thumb-placeholder';
+                placeholder.textContent = '+';
+                placeholder.title = 'Add a frame to start';
+                timelineTrack.appendChild(placeholder);
+            }
+
+            // Scroll to active
+            const active = timelineTrack.querySelector('.thumb.active');
+            if (active) {
+                active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        }
+
+        // --- Drawing ---
+        function getCanvasCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            let clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+                e.preventDefault();
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            return {
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
+            };
+        }
+
+        function startDraw(e) {
+            e.preventDefault();
+            if (isPlaying) stopPlayback();
+            isDrawing = true;
+            const pos = getCanvasCoords(e);
+            lastX = pos.x;
+            lastY = pos.y;
+            // Save state for undo later (simplified: we save on each stroke end)
+        }
+
+        function draw(e) {
+            e.preventDefault();
+            if (!isDrawing) return;
+
+            const pos = getCanvasCoords(e);
+            const x = pos.x;
+            const y = pos.y;
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.strokeStyle = brushColor.value;
+            ctx.lineWidth = parseInt(brushSize.value);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+
+            lastX = x;
+            lastY = y;
+        }
+
+        function endDraw(e) {
+            if (isDrawing) {
+                isDrawing = false;
+                saveCurrentFrame();
+                renderTimeline(); // Update thumbnail
+                setStatus('Drawing saved', '#6c5ce7');
+            }
+        }
+
+        // --- Canvas Events ---
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('mouseleave', endDraw);
+
+        canvas.addEventListener('touchstart', startDraw, { passive: false });
+        canvas.addEventListener('touchmove', draw, { passive: false });
+        canvas.addEventListener('touchend', endDraw, { passive: false });
+
+        // --- Brush size display ---
+        brushSize.addEventListener('input', () => {
+            sizeDisplay.textContent = brushSize.value + 'px';
+        });
+
+        // --- Button Events ---
+        document.getElementById('addFrameBtn').addEventListener('click', () => {
+            if (isPlaying) stopPlayback();
+            addFrame(false);
+        });
+
+        document.getElementById('prevFrameBtn').addEventListener('click', () => {
+            if (isPlaying) stopPlayback();
+            saveCurrentFrame();
+            const idx = (currentIndex - 1 + frames.length) % frames.length;
+            loadFrame(idx);
+        });
+
+        document.getElementById('nextFrameBtn').addEventListener('click', () => {
+            if (isPlaying) stopPlayback();
+            saveCurrentFrame();
+            const idx = (currentIndex + 1) % frames.length;
+            loadFrame(idx);
+        });
+
+        document.getElementById('deleteFrameBtn').addEventListener('click', () => {
+            if (isPlaying) stopPlayback();
+            deleteCurrentFrame();
+        });
+
+        document.getElementById('playBtn').addEventListener('click', togglePlay);
+
+        document.getElementById('exportBtn').addEventListener('click', exportVideo);
+
+        document.getElementById('saveBtn').addEventListener('click', saveProject);
+
+        document.getElementById('loadBtn').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                loadProject(e.target.files[0]);
+            }
+            e.target.value = '';
+        });
+
+        // --- Keyboard Shortcuts ---
+        document.addEventListener('keydown', (e) => {
+            // Don't trigger if typing in input
+            if (e.target.tagName === 'INPUT') return;
+
+            switch (e.key) {
+                case 'n':
+                case 'N':
+                    e.preventDefault();
+                    if (isPlaying) stopPlayback();
+                    addFrame(false);
+                    break;
+                case 'Delete':
+                case 'Backspace':
+                    e.preventDefault();
+                    if (isPlaying) stopPlayback();
+                    deleteCurrentFrame();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    if (isPlaying) stopPlayback();
+                    saveCurrentFrame();
+                    const prev = (currentIndex - 1 + frames.length) % frames.length;
+                    loadFrame(prev);
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    if (isPlaying) stopPlayback();
+                    saveCurrentFrame();
+                    const next = (currentIndex + 1) % frames.length;
+                    loadFrame(next);
+                    break;
+                case ' ':
+                    e.preventDefault();
+                    togglePlay();
+                    break;
+                case 's':
+                case 'S':
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        saveProject();
+                    }
+                    break;
+                case 'e':
+                case 'E':
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        exportVideo();
+                    }
+                    break;
+            }
+        });
+
+        // --- Initialization ---
+        function init() {
+            // Start with one blank frame
+            const blank = createBlankImageData();
+            frames = [blank];
+            currentIndex = 0;
+            ctx.putImageData(blank, 0, 0);
+            updateUI();
+            renderTimeline();
+            setStatus('Ready', '#00b894');
+            showToast('🎨 Welcome to Naix Animated!', 'success');
+            console.log('⚡ Naix Animated v1.0 loaded');
+            console.log('📐 Canvas:', CANVAS_W, 'x', CANVAS_H, '@', FPS, 'fps');
+            console.log('💡 Shortcuts: N=new, ←→=nav, Space=play, Del=delete');
+        }
+
+        init();
+    </script>
+
+</body>
+</html>
